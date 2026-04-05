@@ -25,7 +25,7 @@ class Settings:
         with open(path, "w") as f:
             yaml.dump(data, f, sort_keys=False)
     def load(self):
-        # 1️⃣ try settings
+        # try settings
         data = self._read(self.SETTINGS_FILE)
         if validate(data, SCHEMA):
             self.data = data
@@ -35,7 +35,7 @@ class Settings:
             self.data = data
             self._write(self.SETTINGS_FILE, data)
             return self.data
-        # 2️⃣ try backup
+        # then try backup
         data = self._read(self.BACKUP_FILE)
         if validate(data, SCHEMA):
             self.data = data
@@ -46,14 +46,14 @@ class Settings:
             self.data = data
             self._write(self.SETTINGS_FILE, data)
             return self.data
-        # 3️⃣ try default
+        # and then try default
         data = self._read(self.DEFAULT_FILE)
         if validate(data, SCHEMA):
             self.data = data
         elif data is not None:
             self.data = repair(data, SCHEMA)
         else:
-            # 4️⃣ schema generate
+            # last, schema generate
             self.data = generate(SCHEMA)
         # recreate files
         self._write(self.SETTINGS_FILE, self.data)

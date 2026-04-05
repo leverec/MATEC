@@ -1,4 +1,4 @@
-__ver__ = "0.1.0"
+__ver__ = "0.1.1"
 from system.loader import Load
 
 config = Load()
@@ -10,7 +10,7 @@ def tokenize(syntax):
 def parse(syntax):
     tokens = tokenize(syntax)
     if not tokens:
-        return
+        return {"type": "unknown"}
     cmd = tokens[0]
     if len(tokens) == 1 and cmd == "help":
         return {
@@ -36,6 +36,4 @@ def parse(syntax):
             "target": tokens[1],
             "values": tokens[2:]
         }
-    return {
-        "type": "unknown"
-    }
+    return {"type": "unknown"}
