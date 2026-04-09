@@ -1,4 +1,4 @@
-__ver__ = "0.1.0"
+__ver__ = "0.2.0"
 import yaml
 from pathlib import Path
 
@@ -16,8 +16,3 @@ class Load:
             return value
         except KeyError:
             return default
-    def path(self, *keys):
-        p = self.get("path", *keys)
-        if p is None:
-            return None
-        return self.root / p

@@ -1,9 +1,8 @@
-__ver__ = "0.1.0"
+__ver__ = "0.2.1"
 from system.syntax.dispatcher import dispatch
 from system.syntax.parser import parse
 
-
-def main():
+def run():
     running = True
     while running:
         signal = parse(input("$ "))
@@ -13,5 +12,5 @@ def main():
 
 if __name__ == "__main__":
     print("Type exit for stopping the script and make sure you've read Syntax.md for better understanding of the syntax!")
-    print("https://github.com/leverec/MATEC/Syntax.md")
-    main()
+    print("https://github.com/leverec/MATEC/blob/main/Syntax.md")
+    run()

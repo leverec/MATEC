@@ -1,4 +1,4 @@
-__ver__ = "0.1.0"
+__ver__ = "0.2.0"
 from .helper import clean
 
 def pretty_format(data: dict, rounded: int, unit: str) -> None:

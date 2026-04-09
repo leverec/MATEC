@@ -1,16 +1,15 @@
-__ver__ = "0.1.1"
+__ver__ = "0.2.2"
 from .scanner import scan
-
-def scanner_len(args: list) -> tuple[None | str, None | str]:
-    if args is None:
-        return None, None
-    if len(args) > 1:
-        return args[0], args[1]
-    if len(args) == 1:
-        return args[0], None
-    return None, None
+from .sync import sync
+from .helper import length_checks
 
 def handle(signal: dict) -> None:
-    if signal["action"] == "version":
-        path, filtered = scanner_len(signal["args"])
+    args = signal["args"]
+    action = signal["action"]
+    argument = length_checks(args)
+    
+    if action == "version":
+        if argument[0] is not None and argument[0] == "--sync":
+            return sync()
+        path, filtered = argument[0], argument[1]
         scan(path, filtered)

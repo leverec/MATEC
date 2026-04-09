@@ -2,25 +2,25 @@
     MATEC
 </h1>
 
-**Version:** 0.1.1 (Beta)
+**Version:** 0.2.0 (Beta)
 MATEC / MathTech is a syntax‑based math tool built with Python.  
 
 > MATEC uses **Syntax-like commands** instead a bunch of nested menus
 
-> [Update! — 0.1.1](./CHANGELOG.md)
+[Update! — 0.2.0](./CHANGELOG.md)
 
 <p align="center">
     <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
-    <a href="./CHANGELOG.md">
-        <img src="https://img.shields.io/badge/version%200.1.1-orange?style=for-the-badge">
+    <a href="https://github.com/leverec/MATEC/blob/main/CHANGELOG.md">
+        <img src="https://img.shields.io/badge/version%200.2.0-yellow?style=for-the-badge">
     </a>
-    <a href="./LICENSE">
+    <a href="https://www.gnu.org/licenses/gpl-3.0.html">
         <img src="https://img.shields.io/badge/GNU%20General%20Public%20License%20v3.0-maroon?style=for-the-badge">
     </a>
-    <a href="./CHANGELOG.md">
+    <a href="https://github.com/leverec/MATEC/blob/main/CHANGELOG.md">
         <img src="https://img.shields.io/badge/changelog-darkgreen?style=for-the-badge">
     </a>
-    <a href="./Syntax.md">
+    <a href="https://github.com/leverec/MATEC/blob/main/Syntax.md">
         <img src="https://img.shields.io/badge/syntax%20documentation-purple?style=for-the-badge">
     </a>
 </p>
@@ -29,6 +29,7 @@ MATEC / MathTech is a syntax‑based math tool built with Python.
 **1. Clone This Repository**
 ```bash
 git clone https://github.com/leverec/MATEC.git
+cd MATEC
 ```
 **2. Run The Script**
 ```bash
@@ -59,11 +60,11 @@ Area      : 120cm²
 ```text
 $ exit
 ```
-For more syntax, you can read the documents that i made [Full Syntax Documentation](./Syntax.md)
+For more syntax, you can read the documents that i made [Full Syntax Documentation](https://github.com/leverec/MATEC/blob/main/Syntax.md)
 
 ## Contributing
 This is a personal project, but ideas and suggestions are welcome.
 Feel free to open an issue or fork the repo.
 
 ## License
-MATEC is free software licensed under the GNU General Public License v3.0 – see the [LICENSE](./LICENSE) file for details.
+MATEC is free software licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html)– see the [LICENSE](https://github.com/leverec/MATEC/blob/main/LICENSE) file for details.

@@ -1,41 +1,25 @@
-__ver__ = "0.1.0"
+__ver__ = "0.2.1"
 import math
 
-PI: float = math.pi
+def engine(radius):
+    return {
+        "radius": radius,
+        "diameter": radius * 2,
+        "circumference": 2 * math.pi * radius,
+        "area": math.pi * radius ** 2
+    }
 
-class BaseCircle:
-    def result(self):
-        return {
-            "radius": self.radius,
-            "diameter": self.diameter,
-            "circumference": self.circumference,
-            "area": self.area
-        }
+def normalize(key, val):
+    if key == "r":
+        return val
+    elif key == "d":
+        return val / 2
+    elif key == "c":
+        return val / (2 * math.pi)
+    elif key == "a":
+        return math.sqrt(val / math.pi)
+    else:
+        return None
 
-class Circle_by_radius(BaseCircle):
-    def __init__(self, radius):
-        self.radius = radius
-        self.diameter = 2 * radius
-        self.circumference = 2 * PI * radius
-        self.area = PI * radius ** 2
-
-class Circle_by_diameter(BaseCircle):
-    def __init__(self, diameter):
-        self.radius = diameter / 2
-        self.diameter = diameter
-        self.circumference = PI * diameter
-        self.area = PI * self.radius ** 2
-
-class Circle_by_circumference(BaseCircle):
-    def __init__(self, circumference):
-        self.radius = (circumference / PI)/ 2
-        self.diameter = circumference / PI
-        self.circumference = circumference
-        self.area = PI * self.radius ** 2
-
-class Circle_by_area(BaseCircle):
-    def __init__(self, area):
-        self.radius = math.sqrt(area / PI)
-        self.diameter = self.radius * 2
-        self.circumference = PI * self.diameter
-        self.area = area
+def solve(key, val):
+    return engine(normalize(key, val))

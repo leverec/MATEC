@@ -1,4 +1,4 @@
-__ver__ = "0.1.0"
+__ver__ = "0.2.0"
 from .manager import Settings
 
 def valid_get(key):

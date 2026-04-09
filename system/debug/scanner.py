@@ -1,4 +1,4 @@
-__ver__ = "0.1.1"
+__ver__ = "0.2.2"
 import os
 import re
 from pathlib import Path
@@ -18,16 +18,21 @@ def parse_version(line):
     # ex :__ver__ = "1.0.0" , output = 1.0.0
     return match.group(1) if match else None 
 
+def is_valid_version(ver):
+    return bool(re.match(r'^\d+\.\d+\.\d+$', ver))
+
 def analyze_file(path):
     try:
         with open(path, "r", encoding="utf-8") as f:
             line = f.readline().strip()
             if line.startswith("__ver__"):
                 version = parse_version(line)
-                if version:
-                    return "D1", line, version # line = __ver__ = "[ver]", version = [ver]
+                if version is None:
+                    return "WX", "INVVS", None
+                elif is_valid_version(version):
+                    return "D1", line, version  # line = __ver__ = "[ver]", version = [ver]
                 else:
-                    return "WX", "INVVS", None # INVVS -> Invalid Version Format
+                    return "WX", "INVVS", version # INVVS -> Invalid Version Format
             else:
                 return "WX", "NOTVS", None # NOTVS -> Version Not Found
     except Exception as e:
@@ -45,7 +50,7 @@ def colorize(status, text):
 # scan: path = None (default): input = path/ or path
 def scan(path=None, version_filter=None):
     # input["debug", "version", path, version_filter]
-    ROOT = Path(__file__).resolve().parent.parent.parent
+    ROOT = Path(__file__).resolve().parents[2]
     # ROOT = MATEC(in this case)
     if path is None:
         target = ROOT
@@ -54,10 +59,9 @@ def scan(path=None, version_filter=None):
     
     config = Load()
     # ↓ header displayed output ↓
-    print(f"— [{config.get("meta", "name")}] : {config.get("meta", "version")} $ {path}")
-    print(f"scanner.version = {__ver__}")
+    print(f"— [{config.get("meta", "name")}] : {config.get("meta", "version")} $ {path} $ {version_filter}")
+    print(f"scanner.version = {__ver__}\n")
     # — [MATEC / meta : (name) in config] : (meta : (version) in config) $ ["{path}" | None]
-    print()
     stats = {"D1": 0, "WX": 0, "X0": 0}
     results = []
     # results = status(D1,WX,X0), path, info: __ver__ = {version}, version: {version}

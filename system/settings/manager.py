@@ -1,15 +1,13 @@
-__ver__ = "0.1.0"
+__ver__ = "0.2.1"
 import yaml
 import os
 import shutil
-from system.loader import Load
 from .schema import SCHEMA, validate, repair, generate
 
 class Settings:
-    config = Load()
-    SETTINGS_FILE: str = config.path("system", "settings", "settings_yml")
-    BACKUP_FILE: str = config.path("system", "settings", "backup_yml")
-    DEFAULT_FILE: str = config.path("system", "settings", "default_yml")
+    SETTINGS_FILE: str = "system/settings/settings.yml"
+    BACKUP_FILE: str = "system/settings/backup.yml"
+    DEFAULT_FILE: str = "system/settings/default.yml"
     def __init__(self):
         self.data = {}
         self.load()

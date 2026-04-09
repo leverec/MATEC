@@ -1,17 +1,7 @@
 meta:
     name: MATEC
-    version: 0.1.0
-    schema: 1
-    
-path:
-    modules:
-        
-    system:
-        settings:
-            settings_yml: system/settings/settings.yml
-            backup_yml: system/settings/backup.yml
-            default_yml: system/settings/default.yml
-        
+    version: 0.2.0
+
 commands:
     system:
         - settings

@@ -1,39 +1,25 @@
-__ver__ = "0.1.0"
+__ver__ = "0.2.1"
 import math
 
-class BaseSquare:
-    def result(self):
-        return {
-            "side": self.side,
-            "diagonal": self.diagonal,
-            "perimeter": self.perimeter,
-            "area": self.area
-        }
+def engine(side):
+    return {
+        "side": side,
+        "diagonal": side * math.sqrt(2),
+        "perimeter": 4 * side,
+        "area": side ** 2
+    }
 
-class Square_by_side(BaseSquare):
-    def __init__(self, side):
-        self.side = side
-        self.diagonal = side * math.sqrt(2)
-        self.perimeter = side * 4
-        self.area = side ** 2
+def normalize(key, val):
+    if key == "s":
+        return val
+    elif key == "d":
+        return val / math.sqrt(2)
+    elif key == "p":
+        return val / 4
+    elif key == "a":
+        return math.sqrt(val)
+    else:
+        return None
 
-class Square_by_diagonal(BaseSquare):
-    def __init__(self, diagonal):
-        self.side = diagonal * math.sqrt(2) / 2
-        self.diagonal = diagonal
-        self.perimeter = self.side * 4
-        self.area = self.side ** 2
-
-class Square_by_perimeter(BaseSquare):
-    def __init__(self, perimeter):
-        self.side = perimeter / 4
-        self.diagonal = self.side * math.sqrt(2)
-        self.perimeter = perimeter
-        self.area = self.side ** 2
-
-class Square_by_area(BaseSquare):
-    def __init__(self, area):
-        self.side = math.sqrt(area)
-        self.diagonal = self.side * math.sqrt(2)
-        self.perimeter = self.side * 4
-        self.area = area
+def solve(key, val):
+    return engine(normalize(key, val))
