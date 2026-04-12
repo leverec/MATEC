@@ -14,8 +14,8 @@ MATEC / MathTech is a syntax‑based math tool built with Python.
     <a href="https://github.com/leverec/MATEC/blob/main/CHANGELOG.md">
         <img src="https://img.shields.io/badge/version%200.2.0-yellow?style=for-the-badge">
     </a>
-    <a href="https://www.gnu.org/licenses/gpl-3.0.html">
-        <img src="https://img.shields.io/badge/GNU%20General%20Public%20License%20v3.0-maroon?style=for-the-badge">
+    <a href="http://www.apache.org/licenses/">
+        <img src="https://img.shields.io/badge/Apache--2.0%20License-maroon?style=for-the-badge">
     </a>
     <a href="https://github.com/leverec/MATEC/blob/main/CHANGELOG.md">
         <img src="https://img.shields.io/badge/changelog-darkgreen?style=for-the-badge">
