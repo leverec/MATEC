@@ -1,146 +1,108 @@
 # Syntax Documentation
 
-[Back](./README.md)
+[Back to Home](./README.md)
 
-> it's still specific for shapes, might changes later
+> **Status:** MATEC is currently in Beta. Syntax is focused on mathematical logic and CLI system management.
 
 ## General Use
-### Command Format
-All commands follow this positional hierarchy:
+### Input Processing
+MATEC categorizes inputs into two distinct types:
 
-`$ <module> <argument> <val1> [val2] [val3]`
+1. **Structured Commands (Geometry & System)**
+   Follows a positional hierarchy:
+   `$ <module> <argument> <val1> [val2] [val...]`
+   - **Positional Logic**: The system interprets values based on their position relative to the argument.
+   - **Argument-Driven**: The argument defines how the following values are assigned.
 
-### Logic Rules
-The system processes values based on the number of inputs and argument type:
+2. **Expression Parsing (Arithmetic Engine)**
+   Follows standard mathematical notation:
+   `$ <expression>`
+   - **Direct Evaluation**: The system detects mathematical operators or constants and triggers the Arithmetic Engine automatically.
 
-1. **Single Input Modules (Circle, Square)**
-   - Only requires `val1`.
-   - The value is directly assigned to the property defined by the argument.
+## Input Logic & Sorting Rules
+To prevent illogical geometric calculations (e.g., a side longer than the hypotenuse), MATEC applies specific sorting rules based on the chosen argument:
 
-2. **Multi-Input Modules (Rectangle, Triangle)**
-   - **Flexible Arguments (Basic)**: Used for base/sides (e.g., "b"). The system automatically sorts the values (e.g., largest becomes length/base).
-   - **Strict Arguments (Specific)**: Used for specific properties (e.g., "d", "p", "a", "h"). `val1` is **always** treated as the property defined by the argument, regardless of its size.
+### 1. Auto-Sorted Inputs
+For these arguments, the system automatically reorders `<val1>` and `[val2]` to ensure mathematical consistency.
+- **Triangle**: `b` (base), `h` (hypotenuse).
+- **Rectangle**: `b` (base), `d` (diagonal), `p` (perimeter).
+*Logic: The system determines which value represents the primary property based on magnitude to avoid calculation errors.*
 
----
+### 2. Strict/Unsorted Inputs
+For these arguments, `<val1>` is strictly assigned as the defined property and is never reordered.
+- **Triangle**: `a` (area).
+- **Rectangle**: `a` (area).
+*Logic: The first value is always treated as the specific target value (e.g., the total Area).*
+
+## System Commands
+
+| Command | Action |
+| :--- | :--- |
+| `clear` / `cls` | Clear the terminal screen. |
+| `exit` / `q` | Close the MATEC session. |
+| `settings show` | Display all current configurations. |
+| `settings get <key>` | Get value of a specific setting. |
+| `settings set <key> <val>` | Update a setting (e.g., `precision`). |
+| `debug version [path] [ver]` | Scan and read versioning across all Python files. |
+| `debug version --sync` | Synchronize x.y versioning to match the project x.y.z format. |
+
+## Submodules A (Geometry)
 
 <details>
 <summary><b>Circle Syntax</b></summary>
 
-`circle <argument> <val1>`
-
-**Arguments**
-- "r" → radius
-- "d" → diameter
-- "c" → circumference
-- "a" → area
-
-**Example**
-
-```
-$ circle r 7
-Output
-Radius        : 7cm
-Diameter      : 14cm
-Circumference : 43.98cm
-Area          : 153.94cm²
-```
+`circle <arg> <val1>`
+- **Args**: `r` (radius), `d` (diameter), `c` (circumference), `a` (area).
 
 </details>
-
----
 
 <details>
 <summary><b>Square Syntax</b></summary>
 
-`square <argument> <val1>`
-
-**Arguments**
-- "s" → side
-- "d" → diagonal
-- "p" → perimeter
-- "a" → area
-
-**Example**
-
-```
-$ square s 6
-Output
-Side      : 6cm
-Diagonal  : 8.49cm
-Perimeter : 24cm
-Area      : 36cm²
-```
+`square <arg> <val1>`
+- **Args**: `s` (side), `d` (diagonal), `p` (perimeter), `a` (area).
 
 </details>
-
----
 
 <details>
 <summary><b>Rectangle Syntax</b></summary>
 
-`rectangle <argument> <val1> <val2>`
-
-**Arguments**
-- "b" → base (Flexible: val1 & val2 are sorted into length & width)
-- "d" → diagonal (Strict: val1 = diagonal, val2 = length/width)
-- "p" → perimeter (Strict: val1 = perimeter, val2 = length/width)
-- "a" → area (Strict: val1 = area, val2 = length/width)
-
-**Behavior Rules**
-- For argument **"b"**, the system automatically determines length (larger) and width (smaller).
-- For arguments **"d", "p", "a"**, `val1` is strictly processed as the primary property.
-
-**Example**
-
-```
-$ rectangle b 8 15
-Output
-Length    : 15cm
-Width     : 8cm
-Diagonal  : 17cm
-Perimeter : 46cm
-Area      : 120cm²
-```
+`rectangle <arg> <val1> <val2>`
+- **Args**: `b` (sorted), `d` (sorted), `p` (sorted), `a` (strict).
 
 </details>
-
----
 
 <details>
 <summary><b>Triangle Syntax</b></summary>
 
-`triangle <argument> <val1> <val2> [val3]`
-
-**Arguments**
-- "b" → base (Flexible: val1 & val2 are sorted into base & height)
-- "h" → hypotenuse (Strict: val1 = hypotenuse, val2 = base/height)
-- "p" → perimeter (Strict: val1 = perimeter, val2 & val3 = known sides)
-- "a" → area (Strict: val1 = area, val2 = base/height)
-
-**Behavior Rules**
-- **Argument "b"**: Flexible sorting (Largest = Base, Smallest = Height).
-- **Argument "h"**: Strict. `val1` is the Hypotenuse.
-- **Argument "p"**: Strict. `val1` is the Perimeter. System calculates the 3rd side, then sorts all: Largest = Hypotenuse, Median = Base, Smallest = Height.
-- **Argument "a"**: Strict. `val1` is the Area.
-
-**Example**
-
-```
-$ triangle b 3 4
-Output
-Base       : 4cm
-Height     : 3cm
-Hypotenuse : 5cm
-Perimeter  : 12cm
-Area       : 6cm²
-```
+`triangle <arg> <val1> <val2>`
+- **Args**: `b` (sorted), `h` (sorted), `a` (strict).
 
 </details>
 
+## Submodules B (Arithmetic Engine)
+
+### Functions & Roots
+| Function | Syntax | Description |
+| :--- | :--- | :--- |
+| **Max/Min** | `max(<v1>, <v2>, ...)` | Find maximum or minimum values. |
+| **Square Root** | `sqrt(<v1>)` / `√<v1>` | Calculate the square root of a value. |
+| **Cube Root** | `cbrt(<v1>)` | Calculate the cube root of a value. |
+| **Custom Root** | `root(<val>, [root_val])` | Calculates root of <val>. Defaults to square root (2) if [root_val] is empty. |
+| **Power** | `power(<val>, <exp>)` | Calculates <val> to the power of <exp>. |
+
+### Constants & Operators
+- **Constants**: `pi`, `π`, `e`
+- **Operators**: `+`, `-`, `*`, `x`, `×`, `/`, `:`, `÷`, `**`, `^`, `%`
+
+**Example Usage:**
+```text
+$ 21 + 72 : 2 ^ √36 + (76 - 22) * (86 - -19) ÷ π × e
+```
+
 ---
 
-**Notes**
-- This project is syntax-based and runs in a CLI environment.
-- **Beta Notice**: Strict positional logic applies to multi-input specific arguments.
-- Invalid input always return no output (None).
-- This project is currently in beta.
+> [!NOTE]
+> **AI-Assisted Documentation:** This documentation was generated and refined by **AI** to ensure linguistic precision and clarity, as the **author's primary language is not English.**
+> 
+> **Error Handling:** Any input that violates the defined syntax or positional logic will return a `None` value. Use **Debug Mode** for detailed feedback.

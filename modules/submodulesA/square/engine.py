@@ -1,4 +1,4 @@
-__ver__ = "0.2.1"
+__ver__ = "0.3.1"
 import math
 
 def engine(side):

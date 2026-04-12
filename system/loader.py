@@ -1,6 +1,6 @@
-__ver__ = "0.2.0"
-import yaml
+__ver__ = "0.3.0"
 from pathlib import Path
+import yaml
 
 class Load:
     def __init__(self):

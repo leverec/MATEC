@@ -1,4 +1,4 @@
-__ver__ = "0.2.1"
+__ver__ = "0.3.2"
 import math
 
 def engine(length, width):
@@ -14,9 +14,13 @@ def normalize(key, val1, val2):
     if key == "b":
         return val1, val2
     elif key == "d":
+        diagonal = max(val1, val2)
+        base = min(val1, val2)
         val2 = math.sqrt(val1 - val2)
         return val1, val2
     elif key == "p":
+        val1 = max(val1, val2)
+        val2 = min(val1, val2)
         val1 /= 2 - val2
         return val1, val2
     elif key == "a":

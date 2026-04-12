@@ -1,72 +1,93 @@
-__ver__ = "0.2.1"
+__ver__ = "0.3.2"
+from utils.colors import colorize_feedback_type2, colorize
+from .schema import SCHEMA, repair, generate
 import yaml
+import sys
 import os
-import shutil
-from .schema import SCHEMA, validate, repair, generate
 
 class Settings:
-    SETTINGS_FILE: str = "system/settings/settings.yml"
-    BACKUP_FILE: str = "system/settings/backup.yml"
-    DEFAULT_FILE: str = "system/settings/default.yml"
+    FILE = "system/settings/settings.yml"
     def __init__(self):
+        self._cli_debug = "-d" in sys.argv or "--debug" in sys.argv
         self.data = {}
         self.load()
-    def _read(self, path):
-        if not os.path.exists(path):
+        
+    def _read(self):
+        if not os.path.exists(self.FILE):
             return None
         try:
-            with open(path, "r") as f:
+            with open(self.FILE, "r") as f:
                 return yaml.safe_load(f)
-        except Exception:
+        except Exception as e:
+            if self._cli_debug:
+                print(colorize_feedback_type2("X0", e))
             return None
-    def _write(self, path, data):
-        with open(path, "w") as f:
-            yaml.dump(data, f, sort_keys=False)
+            
+    def _atomic_write(self, data):
+        tmp_file = self.FILE + ".tmp"
+        try:
+            with open(tmp_file, "w") as f:
+                yaml.dump(data, f, sort_keys=False)
+            
+            os.replace(tmp_file, self.FILE)
+        except Exception as e:
+            if os.path.exists(tmp_file):
+                os.remove(tmp_file)
+            if self._cli_debug:
+                print(colorize_feedback_type2("X0", e))
+                
     def load(self):
-        # try settings
-        data = self._read(self.SETTINGS_FILE)
-        if validate(data, SCHEMA):
-            self.data = data
-            return self.data
-        if data is not None:
-            data = repair(data, SCHEMA)
-            self.data = data
-            self._write(self.SETTINGS_FILE, data)
-            return self.data
-        # then try backup
-        data = self._read(self.BACKUP_FILE)
-        if validate(data, SCHEMA):
-            self.data = data
-            self._write(self.SETTINGS_FILE, data)
-            return self.data
-        if data is not None:
-            data = repair(data, SCHEMA)
-            self.data = data
-            self._write(self.SETTINGS_FILE, data)
-            return self.data
-        # and then try default
-        data = self._read(self.DEFAULT_FILE)
-        if validate(data, SCHEMA):
-            self.data = data
-        elif data is not None:
-            self.data = repair(data, SCHEMA)
-        else:
-            # last, schema generate
+        raw_data = self._read()
+        
+        if raw_data is None:
             self.data = generate(SCHEMA)
-        # recreate files
-        self._write(self.SETTINGS_FILE, self.data)
-        self._write(self.BACKUP_FILE, self.data)
-        self._write(self.DEFAULT_FILE, self.data)
-        return self.data
-    def save(self):
-        if os.path.exists(self.SETTINGS_FILE):
-            shutil.copy(self.SETTINGS_FILE, self.BACKUP_FILE)
-        self._write(self.SETTINGS_FILE, self.data)
-    def get(self, key, default=None):
-        return self.data.get(key, default)
-    def set(self, key, value):
-        self.data[key] = value
-        self.data = repair(self.data, SCHEMA)
+        else:
+            self.data = repair(raw_data, SCHEMA)
+        
+        self.data["debugMode"] = self._cli_debug
+            
         self.save()
-    def reload(self):
-        return self.load()
+        return self.data
+        
+    def save(self):
+        self._atomic_write(self.data)
+        
+    def get(self, key, default=None):
+        if key == "debugMode":
+            return self._cli_debug
+        return self.data.get(key, default)
+        
+    def set(self, key, value):
+        if key not in self.data:
+            print(colorize_feedback_type2("X0", "This key cannot be found in settings"))
+            return None
+            
+        if key == "debugMode":
+            print(colorize_feedback_type2("X0", "Permission denied: this setting cannot be changed"))
+            print(colorize_feedback_type2("NF", "debugMode is a setting that can only be changed by using the cli arguments"))
+            return None
+            
+        try:
+            try:
+                value = int(value)
+            except ValueError:
+                value = str(value)
+            self.data[key] = value
+            self.data = repair(self.data, SCHEMA)
+            
+            if self.data.get(key) != value:
+                if self._cli_debug:
+                    print(colorize_feedback_type2("X0", f"The value for '{key}' is invalid according to schema rules"))
+                    print(colorize_feedback_type2("NF", f"The value is invalid, the value for '{key}' will be reset to default"))
+                    self.save()
+                    return None
+                print(colorize_feedback_type2("X0", "Invalid value"))
+                self.save()
+                return None
+            self.save()
+            print(colorize_feedback_type2("D1", f"'{key}' has been updated to '{value}'"))
+            
+        except Exception as e:
+            print(colorize_feedback_type2("X0", "Something went wrong"))
+            if self._cli_debug:
+                print(colorize("TEXT_RED", f"FATAL: {e}"))

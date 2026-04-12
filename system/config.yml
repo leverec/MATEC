@@ -1,22 +1,28 @@
+# MATEC Configuration File
 meta:
     name: MATEC
-    version: 0.2.0
-
+    version: 0.3.0
+    author: leverec
+    
 commands:
     system:
+        - clear
+        - cls
+        - exit
+        - q
+        - help
         - settings
-        - matec
         - debug
     modules:
         submodulesA:
             - circle
-            - kite
-            - oval
-            - parallelogram
             - rectangle
-            - rhombus
             - square
-            - trapezoid
             - triangle
-        submodulesB:
-            - none
+
+modules:
+    geometry:
+        - circle
+        - rectangle
+        - square
+        - triangle

@@ -3,7 +3,37 @@
 [Back](./README.md)
 [CHANGELOG for dev](./changelog.dev.md)
 
-## [0.2.0] (BETA) – 2026/04/09
+## [0.3.0] (BETA) – 2026/04/15
+*major refactor, O(1) optimization, and arithmetic expansion.*
+
+### Added
+- **Arithmetic Engine:** Integrated `eval()` as a backend for `submodulesB`. Added custom pre-processing for math symbols (π, √, ^, etc.) and support for implicit multiplication (e.g., `pix7^2`).
+- **Debug Mode Implementation:** Introduced `sys.argv` detection. `debugMode` toggles between returning `None` (Normal) and full `error feedback` (Debug).
+- **Atomic Write Strategy:** Replaced manual backup `.yml` files with an atomic write process in `manager.py` to ensure data integrity.
+- **Utils Directory:** Centralized shared functions into a new `/utils` folder, nuking redundant `helper.py` functions.
+- **Output Buffering:** Migrated `version.py` output from direct loops to a buffered string approach to minimize `print()` overhead.
+
+### Changed
+- **O(n) to O(1) Migration:** Refactored `system/syntax/dispatcher` to use dictionary/config-based lookups instead of iterative scanning.
+- **Version Control Consolidation:** Merged `scanner.py` and `sync.py` into a single `version.py` since the read/write logic was 90% identical.
+- **Parser Overhaul:** Complete rewrite of `system/syntax/parser.py` for better maintainability and logic flow. Commands are now stored in `config.yml`.
+- **License Pivot:** Re-licensed the project from GPLv3 to Apache-2.0.
+
+### Improved
+- **Geometry Logic:** Refactored `submodulesA` (triangle/rectangle) to assume the largest value for hypotenuse/perimeter cases, while maintaining traditional detection for area.
+- **Color Integration:** Added a color utility system for terminal output (Error, Info, Success, etc.).
+
+### Fixed
+- **Code Bloat:** Removed `system/settings/default.yml` and `backup.yml` as they are no longer needed with the new atomic write system.
+- **Parameter Cleanup:** Deleted the "perimeter" argument in `triangle/engine.py` to avoid controversial/strict input results.
+
+</details>
+
+---
+
+<details>
+<summary><b>v0.2.0 beta 2026/04/09</b></summary>
+
 ### Added
 - Added support for triangle calculations.
 - Improved internal system for handling input and version syncing.
@@ -14,8 +44,12 @@
 - Fixed incorrect documentation link.
 - Removed unnecessary internal processes to make the system more efficient.
 
+</details>
+
+---
+
 <details>
-<summary><b>v0.1.0 beta 2026/04/05</b></summary>
+<summary><b>v0.1.1 beta 2026/04/05</b></summary>
 
 ### Fixed
 - fix argument parsing issue where second value was not detected
@@ -38,3 +72,8 @@
 - still in beta, may break sometimes
 
 </details>
+
+---
+
+> [!NOTE]
+> Confused about the **new features** or found a **bug**? Feel free to reach out! You can contact me through my **social media** for a quick chat. I’m more than happy to explain things further in [**Bahasa Indonesia**](https://en.wikipedia.org/wiki/Indonesian_language).

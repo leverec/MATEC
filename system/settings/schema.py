@@ -1,19 +1,23 @@
-__ver__ = "0.2.0"
+__ver__ = "0.3.0"
 SCHEMA = {
     "unit": {
         "type": str,
         "default": "cm",
-        "allowed": ["mm", "cm", "m", "km"]
+        "allowed": ["mm", "cm", "dm", "m", "km"]
     },
     "precision": {
         "type": int,
         "default": 2,
         "min": 0,
-        "max": 10
+        "max": 15
     },
-    "show_unit": {
+    "showUnit": {
         "type": bool,
         "default": True
+    },
+    "debugMode": {
+        "type": bool,
+        "default": False
     }
 }
 

@@ -2,17 +2,17 @@
     MATEC
 </h1>
 
-**Version:** 0.2.0 (Beta)
-MATEC / MathTech is a syntax‑based math tool built with Python.  
+<p align="center">
+    <strong>Version: 0.3.0 (Beta)</strong><br>
+    MATEC (MathTech) is a high-performance, syntax‑based math tool and Domain Specific Language (DSL) prototype built with Python.
+</p>
 
-> MATEC uses **Syntax-like commands** instead a bunch of nested menus
-
-[Update! — 0.2.0](./CHANGELOG.md)
+> MATEC uses **Syntax-like commands** instead of tedious nested menus for a seamless mathematical workflow.
 
 <p align="center">
     <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
     <a href="https://github.com/leverec/MATEC/blob/main/CHANGELOG.md">
-        <img src="https://img.shields.io/badge/version%200.2.0-yellow?style=for-the-badge">
+        <img src="https://img.shields.io/badge/version%200.3.0-yellow?style=for-the-badge">
     </a>
     <a href="http://www.apache.org/licenses/">
         <img src="https://img.shields.io/badge/Apache--2.0%20License-maroon?style=for-the-badge">
@@ -31,40 +31,53 @@ MATEC / MathTech is a syntax‑based math tool built with Python.
 git clone https://github.com/leverec/MATEC.git
 cd MATEC
 ```
+
 **2. Run The Script**
 ```bash
 python main.py
 ```
-**3. Type A Commands**
+*Use `python main.py --debug` or `-d` to enable enhanced error feedback and debug features.*
 
-_Example:_
+**3. Enter Commands**
+
+_Example (Geometry):_
 ```text
 $ circle r 7
-Radius        : 7cm
-Diameter      : 14cm
-Circumference : 43.98cm
-Area          : 153.94cm²
-$ square s 6
-Side      : 6cm
-Diagonal  : 8.49cm
-Perimeter : 24cm
-Area      : 36cm²
-$ rectangle b 8 15
-Length    : 15cm
-Width     : 8cm
-Diagonal  : 17cm
-Perimeter : 46cm
-Area      : 120cm²
+Radius        : 7
+Diameter      : 14
+Circumference : 43.98
+Area          : 153.94
 ```
-**4. Type exit to close the program**
+
+_Example (Advanced Arithmetic):_
 ```text
-$ exit
+$ 21 + 72 : 2 ^ √36 + (76 - 22) * (86 - -19) ÷ π × e
+4928.13
 ```
-For more syntax, you can read the documents that i made [Full Syntax Documentation](https://github.com/leverec/MATEC/blob/main/Syntax.md)
+
+_Example (Settings Management):_
+```text
+$ settings set precision 10
+[D1] 'precision' has been updated to '10'
+$ 21 + 72 : 2 ^ √36 + (76 - 22) * (86 - -19) ÷ π × e
+4928.1264033809
+```
+
+**4. Exit the program**
+Type `exit` or `q` to close the session.
+
+## Roadmap & Goal
+**MATEC** is currently in its Beta stage using Python for logic prototyping. The long-term goal is to rewrite the entire engine in **Rust/C++** to transform it into a standalone, low-level compiled language optimized for **AI** and **heavy mathematical computations.**
 
 ## Contributing
-This is a personal project, but ideas and suggestions are welcome.
-Feel free to open an issue or fork the repo.
+This is actually a personal project, but ideas and suggestions are welcome. Feel free to open an issue or fork the repo.
 
 ## License
-MATEC is free software licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html)– see the [LICENSE](https://github.com/leverec/MATEC/blob/main/LICENSE) file for details.
+[**MATEC**](#matec) is free software licensed under the [**Apache License 2.0**](https://opensource.org/licenses/Apache-2.0) see the [**LICENSE**](https://github.com/leverec/MATEC/blob/main/LICENSE) file for details..
+
+---
+
+> [!NOTE]
+> **AI-Assisted:** All Markdown files and documentation in this repository are AI-assisted for better readability and English proficiency.
+>
+> **Accuracy:** For highly technical inquiries or if you find any discrepancies, feel free to contact me directly on my social media. I'm more than happy to discuss the project in [**Bahasa Indonesia**.](https://en.wikipedia.org/wiki/Indonesian_language)

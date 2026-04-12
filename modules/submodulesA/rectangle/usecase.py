@@ -1,7 +1,7 @@
-__ver__ = "0.2.1"
-from system.settings.manager import Settings
+__ver__ = "0.3.2"
 from modules.submodulesA.formatter import pretty_format
-from modules.submodulesA.helper import length_checks
+from system.settings.manager import Settings
+from utils.vlen import len_float
 from .engine import solve
 
 def handle(signal):
@@ -10,12 +10,17 @@ def handle(signal):
     unit = settings.get("unit")
     precision = settings.get("precision")
     # ↑ from settings ↑ ↓ from helper ↓
-    value = length_checks(signal["values"])
+    value = len_float(signal["values"])
     if value["status"] != "TN":
+        if settings.get("debugMode"):
+            print(colorize_feedback_type2("X0", "Value length has to be 2 AND NOT \033[35mNone\033[0m"))
         return None
     val1, val2 = value["value"][0], value["value"][1]
     #####################
     key = signal["target"]
     if key in ("b", "d", "p", "a"):
         return pretty_format(solve(key, val1, val2), precision, unit)
-    return None
+    else:
+        if settings.get("debugMode"):
+            print(colorize_feedback_type2("X0", "Invalid arguments"))
+        return None

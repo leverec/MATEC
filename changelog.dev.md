@@ -3,7 +3,33 @@
 [Back](./README.md)
 [CHANGELOG for user](./CHANGELOG.md)
 
-## [0.2.0] (BETA) – 2026/04/09
+## [0.3.0] (BETA) – 2026/04/15
+*major refactor, O(1) optimization, and arithmetic expansion.*
+
+### Added
+- **Arithmetic Engine:** Integrated `eval()` backend with pre-processing for math symbols (π, √, ^) and implicit multiplication.
+- **Debug Mode:** Introduced `sys.argv` detection to toggle between `None` returns and full error feedback.
+- **Atomic Write Strategy:** New writing process in `manager.py` to ensure data integrity without backup files.
+- **Utils Directory:** Centralized shared functions into a new `/utils` folder.
+- **Output Buffering:** Migrated `version.py` to a buffered string approach to minimize `print()` overhead.
+
+### Changed
+- **O(1) Dispatcher:** Refactored `system/syntax/dispatcher` to use dictionary-based lookups instead of iterative scanning.
+- **Version Control Consolidation:** Merged `scanner.py` and `sync.py` into a single `version.py`.
+- **Parser Overhaul:** Complete rewrite of `system/syntax/parser.py` with commands now stored in `config.yml`.
+- **Geometry Logic:** Refactored engine to assume largest value for specific math cases while maintaining area detection logic.
+- **License Pivot:** Re-licensed the project from GPLv3 to Apache-2.0.
+
+### Fixed
+- **Dependency Bloat:** Removed redundant `helper.py` functions and moved them to the utils directory.
+- **Redundant Files:** Nuked `system/settings/default.yml` and `backup.yml`.
+- **Parameter Conflict:** Removed "perimeter" argument in `triangle/engine.py` to simplify input strictness.
+
+---
+
+<details>
+<summary><b>v0.2.0 beta 2026/04/09</b></summary>
+
 *major architecture cleanup and new shapes.*
 
 ### Added
@@ -20,6 +46,8 @@
 ### Fixed
 - **Redundancy Cleanup:** Stripped out duplicate path-handling code across `config.yml`, `loader.py`, and `manager.py`. No more useless copy-pasted logic.
 - **Validation Flow:** Successfully migrated validation logic from `usecase.py` to the new `helper.py`. Sticking to the DRY (*Don't Repeat Yourself*) principle.
+
+</details>
 
 ---
 
@@ -54,6 +82,7 @@
 
 </details>
 
-```text
-you might wondering why my english is good? absolutely! it's AI and yk, idk is this really accurate, you can just check it by yourself i guess
-```
+---
+
+> [!Note]
+> This log is **AI-assisted** and might have slight **inaccuracies**. For the real deal or deep-dive technical talk, just hit me up on my socials! I prefer chatting in [**Bahasa Indonesia**](https://en.wikipedia.org/wiki/Indonesian_language).

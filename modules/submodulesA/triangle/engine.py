@@ -1,4 +1,4 @@
-__ver__ = "0.2.0"
+__ver__ = "0.3.1"
 import math
 
 def pythagoras(target, a, b):
@@ -20,22 +20,18 @@ def engine(base, height):
         "area": base * height / 2
     }
 
-def normalize(key, val1, val2, val3):
+def normalize(key, val1, val2):
     if key == "b":
         return val1, val2
     elif key == "h":
-        return pythagoras("a", val1, val2), val2
-    elif key == "p" and val3 is not None:
-        val1 -= (val2 + val3)
-        hypotenuse = max(val1, val2, val3)
-        base = (val1 + val2 + val3) - max(val1, val2, val3) - min(val1, val2, val3)
-        height = min(val1, val2, val3)
-        return base, height
+        hypotenuse = max(val1, val2)
+        side = min(val1, val2)
+        return pythagoras("a", hypotenuse, side), side
     elif key == "a":
         return (2 * val1) / val2, val2
     else:
         return None, None
 
-def solve(key, val1, val2, val3=None):
-    base, height = normalize(key, val1, val2, val3)
+def solve(key, val1, val2):
+    base, height = normalize(key, val1, val2)
     return engine(base, height)

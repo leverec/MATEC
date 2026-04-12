@@ -1,39 +1,57 @@
-__ver__ = "0.2.1"
+__ver__ = "0.3.2"
 from system.loader import Load
+from enum import Enum
 
 config = Load()
 system_commands = config.get("commands", "system")
+geometry_commands = config.get("modules", "geometry")
 
-def tokenize(syntax):
+class CommandType(Enum):
+    SYSTEM = "system"
+    GEOMETRY   = "geometry"
+    ARITHMETIC = "arithmetic"
+    UNKNOWN = "unknown"
+
+def tokenize(syntax: str) -> list[str]:
+    if not isinstance(syntax, str):
+        return []
     return syntax.strip().split()
 
-def parse(syntax):
-    tokens = tokenize(syntax)
+def _classify(tokens: list[str]) -> CommandType:
     if not tokens:
-        return {"type": "unknown"}
+        return CommandType.UNKNOWN
     cmd = tokens[0]
-    if len(tokens) == 1 and cmd == "help":
-        return {
-            "type": "system",
-            "command": "help"
-        }
-    if len(tokens) == 1 and cmd == "exit":
-        return {
-            "type": "system",
-            "command": "exit"
-        }
     if cmd in system_commands:
+        return CommandType.SYSTEM
+    if cmd in geometry_commands:
+        return CommandType.GEOMETRY
+    return CommandType.ARITHMETIC
+
+def parse(syntax: str) -> dict:
+    tokens = tokenize(syntax)
+    kind = _classify(tokens)
+    
+    if kind == CommandType.SYSTEM:
         return {
-            "type": "system",
+            "type"   : CommandType.SYSTEM.value,
             "command": tokens[0],
-            "action": tokens[1] if len(tokens) > 1 else None,
-            "args": tokens[2:] if len(tokens) > 2 else None
+            "action" : tokens[1] if len(tokens) > 1 else None,
+            "args"   : tokens[2:] if len(tokens) > 2 else None,
         }
-    if len(tokens) > 1:
+    if kind == CommandType.GEOMETRY:
         return {
-            "type": "math",
+            "type"   : CommandType.GEOMETRY.value,
             "command": tokens[0],
-            "target": tokens[1],
-            "values": tokens[2:]
+            "target" : tokens[1],
+            "values" : tokens[2:] if len(tokens) > 2 else None,
         }
-    return {"type": "unknown"}
+    if kind == CommandType.ARITHMETIC:
+        return {
+            "type"   : CommandType.ARITHMETIC.value,
+            "command": "arithmetic",
+            "action" : tokens[0:]
+        }
+    return {
+        "type"   : CommandType.UNKNOWN.value,
+        "command": tokens[0] if tokens else None,
+    }
