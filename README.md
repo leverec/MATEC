@@ -78,6 +78,6 @@ This is actually a personal project, but ideas and suggestions are welcome. Feel
 ---
 
 > [!NOTE]
-> **AI-Assisted:** All Markdown files and documentation in this repository are AI-assisted for better readability and English proficiency.
+> **AI-Assisted:** ALL Markdown files in this repository were written with AI assistance. While I understand English, I find it **difficult** to explain things clearly in it. If any part feels off or confusing, please ask me directly in [**Bahasa Indonesia**](https://en.wikipedia.org/wiki/Indonesian_language) for a better explanation.
 >
 > **Accuracy:** For highly technical inquiries or if you find any discrepancies, feel free to contact me directly on my social media. I'm more than happy to discuss the project in [**Bahasa Indonesia**.](https://en.wikipedia.org/wiki/Indonesian_language)
