@@ -46,6 +46,9 @@ For these arguments, `<val1>` is strictly assigned as the defined property and i
 | `debug version [path] [ver]` | Scan and read versioning across all Python files. |
 | `debug version --sync` | Synchronize x.y versioning to match the project x.y.z format. |
 
+> [!TIP]
+> use `python main.py --debug` or `-d` for access to the debug features & enable the errors feedback
+
 ## Submodules A (Geometry)
 
 <details>

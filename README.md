@@ -73,7 +73,7 @@ Type `exit` or `q` to close the session.
 This is actually a personal project, but ideas and suggestions are welcome. Feel free to open an issue or fork the repo.
 
 ## License
-[**MATEC**](#matec) is free software licensed under the [**Apache License 2.0**](https://opensource.org/licenses/Apache-2.0) see the [**LICENSE**](https://github.com/leverec/MATEC/blob/main/LICENSE) file for details..
+[**MATEC**](#matec) is free software licensed under the [**Apache License 2.0**](https://opensource.org/licenses/Apache-2.0) see the [**LICENSE**](https://github.com/leverec/MATEC/blob/main/LICENSE) file for details.
 
 ---
 
