@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-    <strong>Version: 0.3.0 (Beta)</strong><br>
+    <strong>Version: 0.3.1 (Beta)</strong><br>
     MATEC (MathTech) is a high-performance, syntax‑based math tool and Domain Specific Language (DSL) prototype built with Python.
 </p>
 
@@ -12,7 +12,7 @@
 <p align="center">
     <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
     <a href="https://github.com/leverec/MATEC/blob/main/CHANGELOG.md">
-        <img src="https://img.shields.io/badge/version%200.3.0-yellow?style=for-the-badge">
+        <img src="https://img.shields.io/badge/version%200.3.1-yellow?style=for-the-badge">
     </a>
     <a href="http://www.apache.org/licenses/">
         <img src="https://img.shields.io/badge/Apache--2.0%20License-maroon?style=for-the-badge">
