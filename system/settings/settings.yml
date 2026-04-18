@@ -1,4 +1,4 @@
 unit: cm
-precision: 10
+precision: 2
 showUnit: true
-debugMode: false
+debugMode: true

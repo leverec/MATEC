@@ -1,24 +1,33 @@
+__ver__ = "0.3.1"
 import math
 import re
 
 def replaced(text):
-    text = text.lower()
-    text = text.replace("π", " pi ")
+    text = text.lower().replace(" ", "")
+    text = text.replace("π", "pi")
     text = re.sub(r'√(\d+\.?\d*)', r'sqrt(\1)', text)
     text = text.replace("√(", "sqrt(")
-    text = re.sub(r'(\d|pi|\))\s*x\s*(\d|pi|\()', r'\1 * \2', text)
-    text = "".join(text.split())
-    
-    replacements = {"^": "**", ":": "/", "÷": "/", "×": "*"}
+    text = re.sub(r'(?<![a-z])e(?=[0-9p\(])', 'e*', text)
+    text = re.sub(r'(\d)e(?![a-z])', r'\1*e', text)
+    text = re.sub(r'(\d)pi', r'\1*pi', text)
+    text = re.sub(r'pi(\d|[a-z\(])', r'pi*\1', text)
+    text = text.replace("*x", "*")
+    text = text.replace("x*", "*")
+    pattern_x = r'(?<=[0-9e i\)])x(?=[0-9ep s m\(\[])'
+    text = re.sub(pattern_x, '*', text)
+    replacements = {
+        "^": "**",
+        ":": "/",
+        "÷": "/",
+        "×": "*"
+    }
     for old, new in replacements.items():
         text = text.replace(old, new)
-        
+    
     return text
-
 
 def root(number, n=2):
     return number ** (1/n)
-
 
 def clean(n: float, rounded) -> int | float:
     if isinstance(n, float) and n.is_integer():

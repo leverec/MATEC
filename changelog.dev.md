@@ -3,7 +3,16 @@
 [Back](./README.md)
 [CHANGELOG for user](./CHANGELOG.md)
 
-## [0.3.0] (BETA) – 2026/04/15
+## [0.3.1] (BETA) – 2026/04/18
+
+*fixing some bugs*
+
+### Fixed
+- **Implicit Multiplication & Constant Adjacency:** Fixed a regex collision where the x operator failed to parse when used with constants (e.g., pix7x7). The arithmetic engine now correctly handles juxtaposition between numbers and constants, allowing expressions like π4 to be automatically interpreted as π*4.
+
+<details>
+<summary><b>v0.3.0 beta 2026/04/15</b></summary>
+
 *major refactor, O(1) optimization, and arithmetic expansion.*
 
 ### Added
@@ -24,6 +33,8 @@
 - **Dependency Bloat:** Removed redundant `helper.py` functions and moved them to the utils directory.
 - **Redundant Files:** Nuked `system/settings/default.yml` and `backup.yml`.
 - **Parameter Conflict:** Removed "perimeter" argument in `triangle/engine.py` to simplify input strictness.
+
+</details>
 
 ---
 

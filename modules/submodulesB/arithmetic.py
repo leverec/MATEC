@@ -10,7 +10,6 @@ def usecase(signal: dict):
     
     raw_action = " ".join(signal.get("action", []))
     
-    # print(raw_action, "[!] CHECKPOINT")
     
     if not raw_action.strip():
         if settings.get("debugMode"):
@@ -19,7 +18,7 @@ def usecase(signal: dict):
     
     prepared_action = replaced(raw_action)
     
-    # print(prepared_action, "[!] CHECKPOINT")
+    # print(raw_action, "[!]", prepared_action)
     
     try:
         result = eval(prepared_action, {"__builtins__": {}}, allowed)

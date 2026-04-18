@@ -3,7 +3,19 @@
 [Back](./README.md)
 [CHANGELOG for dev](./changelog.dev.md)
 
-## [0.3.0] (BETA) – 2026/04/15
+## [0.3.1] (BETA) – 2026/04/18
+
+*fixing some bugs :D*
+
+### Fixed
+- **Smarter Math Input:** I’ve improved how the app reads your formulas. You can now use x as a multiplication sign even when it's right next to constants like π (e.g., pix7x7 now works perfectly).
+- **Automatic Multiplication:** Writing math feels more natural now. You can place numbers and symbols side-by-side (like π4 or 4pi), and the system will automatically know you mean to multiply them. No extra symbols required!
+
+---
+
+<details>
+<summary><b>v0.3.0 beta 2026/04/15</b></summary>
+
 *major refactor, O(1) optimization, and arithmetic expansion.*
 
 ### Added
